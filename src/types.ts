@@ -12,10 +12,14 @@ export interface SoundConfiguration {
   events: {
     onSave: boolean;
     onDelete: boolean;
+    onOpen: boolean;
+    onDownload: boolean;
   };
   customSounds: {
     save: string;
     delete: string;
+    open: string;
+    download: string;
   };
 }
 
@@ -26,10 +30,10 @@ export interface SoundFile {
 }
 
 export enum SoundEventType {
-  SAVE = 'save'
-}
-export enum SoundEventType {
-  DELETE = 'delete'
+  SAVE = 'save',
+  DELETE = 'delete',
+  OPEN = 'open',
+  DOWNLOAD = 'download',
 }
 export interface PlaySoundOptions {
   volume?: number;

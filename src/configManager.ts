@@ -32,10 +32,14 @@ export class ConfigManager {
       events: {
         onSave: this.configuration.get<boolean>('events.onSave', true),
         onDelete: this.configuration.get<boolean>('events.onDelete', true),
+        onOpen: this.configuration.get<boolean>('events.onOpen', true),
+        onDownload: this.configuration.get<boolean>('events.onDownload', true),
       },
       customSounds: {
         save: this.configuration.get<string>('customSounds.save', ''),
         delete: this.configuration.get<string>('customSounds.delete', ''),
+        open: this.configuration.get<string>('customSounds.open', ''),
+        download: this.configuration.get<string>('customSounds.download', ''),
       }
     };
   }
@@ -55,6 +59,10 @@ export class ConfigManager {
         return config.events.onSave;
       case SoundEventType.DELETE:
         return config.events.onDelete;
+      case SoundEventType.OPEN:
+        return config.events.onOpen;
+      case SoundEventType.DOWNLOAD:
+        return config.events.onDownload;
       default:
         return false;
     }
@@ -67,6 +75,10 @@ export class ConfigManager {
         return config.customSounds.save;
       case SoundEventType.DELETE:
         return config.customSounds.delete;
+      case SoundEventType.OPEN:
+        return config.customSounds.open;
+      case SoundEventType.DOWNLOAD:
+        return config.customSounds.download;
       default:
         return '';
     }

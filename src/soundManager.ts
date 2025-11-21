@@ -30,8 +30,10 @@ export class SoundManager {
   private initializeDefaultSounds(): void {
     const soundsPath = path.join(this.extensionPath, 'sounds');
     
-    this.defaultSounds.set(SoundEventType.SAVE, path.join(soundsPath, 'completion.wav'));
-    this.defaultSounds.set(SoundEventType.DELETE, path.join(soundsPath, 'gunshot.wav'));
+    this.defaultSounds.set(SoundEventType.SAVE, path.join(soundsPath, 'aliensave.wav'));
+    this.defaultSounds.set(SoundEventType.DELETE, path.join(soundsPath, 'laser-gunshot.wav'));
+    this.defaultSounds.set(SoundEventType.OPEN, path.join(soundsPath, 'seti5.wav'));
+    this.defaultSounds.set(SoundEventType.DOWNLOAD, path.join(soundsPath, 'seti5.wav'));
   }
 
   public async playSound(eventType: SoundEventType, options?: PlaySoundOptions): Promise<void> {
