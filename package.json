@@ -1,13 +1,9 @@
 {
   "name": "vscode-sound-notification",
   "displayName": "Sound Notification",
-  "description": "A must extention for Vibe Coders and doom scrollers.",
+  "description": "A must extension for Vibe Coders and doom scrollers.",
   "version": "1.0.0",
-  "publisher": "KennyReyes",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kenny2125/vscode-sound-notification.git"
-  },
+  "publisher": "clararehmann",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -22,15 +18,15 @@
     "feedback",
     "file save"
   ],
-  "license": "MIT",
-  "homepage": "https://github.com/kenny2125/vscode-sound-notification#readme",
-  "bugs": {
-    "url": "https://github.com/kenny2125/vscode-sound-notification/issues"
-  },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
   "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:soundNotification.playTestSound",
+    "onCommand:soundNotification.playWelcomeSound",
+    "onCommand:soundNotification.toggleSounds",
+    "onCommand:soundNotification.openSettings",
+    "onCommand:soundNotification.switchSoundProfile"
+  ],
   "contributes": {
     "commands": [
       {
@@ -51,6 +47,11 @@
       {
         "command": "soundNotification.openSettings",
         "title": "Open Sound Settings",
+        "category": "Sound Notification"
+      },
+      {
+        "command": "soundNotification.switchSoundProfile",
+        "title": "Switch Sound Profile",
         "category": "Sound Notification"
       }
     ],
@@ -74,10 +75,46 @@
           "default": true,
           "description": "Play sound when files are saved"
         },
+        "soundNotification.events.onDelete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play sound when files are deleted"
+        },
+        "soundNotification.events.onOpen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play sound when files are opened"
+        },
+        "soundNotification.events.onDownload": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play sound when code is run/downloaded"
+        },
         "soundNotification.customSounds.save": {
           "type": "string",
           "default": "",
           "description": "Custom sound file path for save events (leave empty for default)"
+        },
+        "soundNotification.customSounds.delete": {
+          "type": "string",
+          "default": "",
+          "description": "Custom sound file path for delete events (leave empty for default)"
+        },
+        "soundNotification.customSounds.open": {
+          "type": "string",
+          "default": "",
+          "description": "Custom sound file path for open events (leave empty for default)"
+        },
+        "soundNotification.customSounds.download": {
+          "type": "string",
+          "default": "",
+          "description": "Custom sound file path for download/run events (leave empty for default)"
+        },
+        "soundNotification.soundProfile": {
+          "type": "string",
+          "enum": ["default", "gunshot"],
+          "default": "default",
+          "description": "Select the sound profile to use for notifications."
         }
       }
     }

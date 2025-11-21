@@ -1,3 +1,11 @@
+export type SoundProfileName = 'default' | 'gunshot';
+
+export interface SoundProfile {
+  name: SoundProfileName;
+  sounds: {
+    [key in SoundEventType]?: string;
+  };
+}
 import * as vscode from 'vscode';
 
 export interface SoundEvent {
@@ -21,6 +29,7 @@ export interface SoundConfiguration {
     open: string;
     download: string;
   };
+  soundProfile?: SoundProfileName;
 }
 
 export interface SoundFile {

@@ -40,8 +40,13 @@ export class ConfigManager {
         delete: this.configuration.get<string>('customSounds.delete', ''),
         open: this.configuration.get<string>('customSounds.open', ''),
         download: this.configuration.get<string>('customSounds.download', ''),
-      }
+      },
+      soundProfile: this.configuration.get<string>('soundProfile', 'default') as 'default' | 'gunshot',
     };
+  }
+
+  public async setSoundProfile(profile: 'default' | 'gunshot') {
+    await this.configuration.update('soundProfile', profile, vscode.ConfigurationTarget.Global);
   }
 
   public isEnabled(): boolean {

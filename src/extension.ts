@@ -42,6 +42,19 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function registerCommands(context: vscode.ExtensionContext): void {
+  // Switch sound profile command
+  const switchProfileCommand = vscode.commands.registerCommand(
+    'soundNotification.switchSoundProfile',
+    async () => {
+      const options = ['default', 'gunshot'];
+      const selection = await vscode.window.showQuickPick(options, { placeHolder: 'Select a sound profile' });
+      if (selection) {
+        configManager.setSoundProfile(selection as 'default' | 'gunshot');
+        soundManager.setProfile(selection as 'default' | 'gunshot');
+        vscode.window.showInformationMessage(`Sound profile switched to: ${selection}`);
+      }
+    }
+  );
   // Play test sound command
   const playTestSoundCommand = vscode.commands.registerCommand(
     'soundNotification.playTestSound',
@@ -99,7 +112,8 @@ function registerCommands(context: vscode.ExtensionContext): void {
     playTestSoundCommand,
     playWelcomeSoundCommand,
     toggleSoundsCommand,
-    openSettingsCommand
+    openSettingsCommand,
+    switchProfileCommand
   );
 }
 

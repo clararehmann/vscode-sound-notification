@@ -12,11 +12,27 @@ export class SoundManager {
   private extensionPath: string;
   private configManager: ConfigManager;
   private defaultSounds: Map<SoundEventType, string>;
+  private profiles: Record<'default' | 'gunshot', Map<SoundEventType, string>>;
 
   private constructor(extensionPath: string) {
     this.extensionPath = extensionPath;
     this.configManager = ConfigManager.getInstance();
     this.defaultSounds = new Map();
+    const soundsPath = path.join(this.extensionPath, 'sounds');
+    this.profiles = {
+      default: new Map([
+        [SoundEventType.SAVE, path.join(soundsPath, 'aliensave.wav')],
+        [SoundEventType.DELETE, path.join(soundsPath, 'laser-gunshot.wav')],
+        [SoundEventType.OPEN, path.join(soundsPath, 'seti5.wav')],
+        [SoundEventType.DOWNLOAD, path.join(soundsPath, 'seti5.wav')],
+      ]),
+      gunshot: new Map([
+        [SoundEventType.SAVE, path.join(soundsPath, 'gunshot.wav')],
+        [SoundEventType.DELETE, path.join(soundsPath, 'gunshot.wav')],
+        [SoundEventType.OPEN, path.join(soundsPath, 'gunshot.wav')],
+        [SoundEventType.DOWNLOAD, path.join(soundsPath, 'gunshot.wav')],
+      ]),
+    };
     this.initializeDefaultSounds();
   }
 
@@ -28,12 +44,16 @@ export class SoundManager {
   }
 
   private initializeDefaultSounds(): void {
-    const soundsPath = path.join(this.extensionPath, 'sounds');
-    
-    this.defaultSounds.set(SoundEventType.SAVE, path.join(soundsPath, 'aliensave.wav'));
-    this.defaultSounds.set(SoundEventType.DELETE, path.join(soundsPath, 'laser-gunshot.wav'));
-    this.defaultSounds.set(SoundEventType.OPEN, path.join(soundsPath, 'seti5.wav'));
-    this.defaultSounds.set(SoundEventType.DOWNLOAD, path.join(soundsPath, 'seti5.wav'));
+    // Set the default profile on startup
+    const configProfile = this.configManager.getConfiguration().soundProfile || 'default';
+    this.setProfile(configProfile);
+  }
+
+  public setProfile(profile: 'default' | 'gunshot') {
+    const sounds = this.profiles[profile];
+    if (sounds) {
+      this.defaultSounds = new Map(sounds);
+    }
   }
 
   public async playSound(eventType: SoundEventType, options?: PlaySoundOptions): Promise<void> {
