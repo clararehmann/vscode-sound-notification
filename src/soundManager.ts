@@ -31,6 +31,7 @@ export class SoundManager {
     const soundsPath = path.join(this.extensionPath, 'sounds');
     
     this.defaultSounds.set(SoundEventType.SAVE, path.join(soundsPath, 'completion.wav'));
+    this.defaultSounds.set(SoundEventType.DELETE, path.join(soundsPath, 'gunshot.wav'));
   }
 
   public async playSound(eventType: SoundEventType, options?: PlaySoundOptions): Promise<void> {

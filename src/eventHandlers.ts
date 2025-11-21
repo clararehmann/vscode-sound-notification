@@ -18,6 +18,12 @@ export class EventHandlers {
         this.soundManager.playSound(SoundEventType.SAVE);
       })
     );
+    // File delete events
+    this.disposables.push(
+      vscode.workspace.onDidDeleteFiles(() => {
+        this.soundManager.playSound(SoundEventType.DELETE);
+      })
+    );
   }
 
   public dispose(): void {

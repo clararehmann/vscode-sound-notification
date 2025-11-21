@@ -11,9 +11,11 @@ export interface SoundConfiguration {
   volume: number;
   events: {
     onSave: boolean;
+    onDelete: boolean;
   };
   customSounds: {
     save: string;
+    delete: string;
   };
 }
 
@@ -26,7 +28,9 @@ export interface SoundFile {
 export enum SoundEventType {
   SAVE = 'save'
 }
-
+export enum SoundEventType {
+  DELETE = 'delete'
+}
 export interface PlaySoundOptions {
   volume?: number;
   customPath?: string;

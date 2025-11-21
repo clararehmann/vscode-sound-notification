@@ -31,11 +31,11 @@ export class ConfigManager {
       volume: this.configuration.get<number>('volume', 0.5),
       events: {
         onSave: this.configuration.get<boolean>('events.onSave', true),
-
+        onDelete: this.configuration.get<boolean>('events.onDelete', true),
       },
       customSounds: {
         save: this.configuration.get<string>('customSounds.save', ''),
-
+        delete: this.configuration.get<string>('customSounds.delete', ''),
       }
     };
   }
@@ -53,6 +53,8 @@ export class ConfigManager {
     switch (eventType) {
       case SoundEventType.SAVE:
         return config.events.onSave;
+      case SoundEventType.DELETE:
+        return config.events.onDelete;
       default:
         return false;
     }
@@ -63,6 +65,8 @@ export class ConfigManager {
     switch (eventType) {
       case SoundEventType.SAVE:
         return config.customSounds.save;
+      case SoundEventType.DELETE:
+        return config.customSounds.delete;
       default:
         return '';
     }
